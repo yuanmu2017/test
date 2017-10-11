@@ -17,5 +17,12 @@ def test():
 	bs = BeautifulSoup(body.text, 'html.parser')
 	s = bs.find_all('script')[1].string[:-1]
 	dict_string = '{' + s.split('= {')[1]
-	return dict_string
+	
+	json_data = json.loads(dict_string)
+	nodes = json_data['entry_data']['ProfilePage'][0]['user']["media"]['nodes']
+	
+	medias = []
+	for node in nodes:
+		medias.append(node["display_src"])
+	return render_template('test_html/test.html', medias=emumerate(medias))
  
